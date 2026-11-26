@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Galeri Proyek Huruf Timbul Medan, Neonbox & Prasasti | CV. WD Advertising</title>
+<meta name="description" content="Portofolio hasil pengerjaan huruf timbul akrilik, stainless, galvanil, neonbox, dan prasasti oleh CV. WD Advertising Jl. Madio Santoso No.199 Medan.">
+
+<!-- AOS (scroll animations) -->
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#0f1724;
+    --card:#0b1220;
+    --muted:#c7d2fe;
+    --accent:#7c5cff;
+    --glass: rgba(255,255,255,0.04);
+  }
+  body{
+    margin:0;
+    font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: linear-gradient(180deg,#071029 0%, #071827 100%);
+    color: #eef2ff;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    padding:28px 14px 90px;
+  }
+
+  header {
+    max-width:1200px;
+    margin:0 auto 28px;
+    text-align:center;
+  }
+  header h1{
+    margin:0;
+    font-family: "Playfair Display", serif;
+    font-size: clamp(28px, 4vw, 44px);
+    color: var(--accent);
+    letter-spacing:1px;
+  }
+  header p { margin:8px 0 0; color:#cbd5ff; opacity:.85; }
+
+  .filters {
+    max-width:1200px;
+    margin:20px auto;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+  .filter-btn {
+    background: transparent;
+    color:#e6eefc;
+    border: 1px solid rgba(255,255,255,0.06);
+    padding:8px 14px;
+    border-radius:999px;
+    cursor:pointer;
+    font-weight:600;
+    transition: .25s;
+  }
+  .filter-btn.active {
+    background: linear-gradient(90deg, rgba(124,92,255,0.18), rgba(124,92,255,0.06));
+    box-shadow: 0 6px 18px rgba(124,92,255,0.08);
+    border-color: rgba(124,92,255,0.28);
+  }
+
+  .grid {
+    max-width:1200px;
+    margin:24px auto;
+    display:grid;
+    gap:14px;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .card {
+    background: var(--card);
+    border-radius:14px;
+    overflow:hidden;
+    position:relative;
+    border: 1px solid rgba(255,255,255,0.03);
+    transition: transform .35s ease, box-shadow .35s ease;
+  }
+  .card:hover { transform: translateY(-6px); box-shadow: 0 20px 44px rgba(2,6,23,0.6); }
+
+  .card img {
+    width:100%;
+    display:block;
+    height:220px;
+    object-fit:cover;
+    transition: transform .6s cubic-bezier(.2,.9,.2,1), filter .45s ease;
+    cursor: pointer;
+  }
+  .card:hover img { transform: scale(1.03) rotate(-0.6deg); filter: saturate(1.05) contrast(1.02); }
+
+  .card .meta {
+    padding:12px;
+    font-size:13px;
+    color: #cbd5ff;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .meta .cat { opacity:0.85; font-weight:600; }
+  .meta .tag { opacity:0.65; font-size:12px; }
+
+  /* Floating Buttons (Terpisah Kiri & Kanan) */
+  .btn-back-home {
+    position: fixed;
+    left: 18px;
+    bottom: 18px;
+    z-index: 9999;
+    background: #ffc836;
+    color: #000;
+    padding: 12px 16px;
+    border-radius: 999px;
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .fab-wa {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 9999;
+  }
+  .fab-wa a {
+    background: linear-gradient(180deg,#25D366,#128C7E);
+    color:#fff;
+    padding:12px 16px;
+    border-radius:999px;
+    display:inline-flex;
+    gap:8px;
+    align-items:center;
+    box-shadow: 0 14px 40px rgba(18,140,126,0.25);
+    text-decoration:none;
+    font-weight:700;
+  }
+
+  .lightbox {
+    position: fixed;
+    inset:0;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    background: rgba(0,0,0,0.88);
+    z-index:2000;
+  }
+  .lightbox.active { display:flex; }
+  .lightbox img {
+    max-width: 92%;
+    max-height: 86%;
+    border-radius:10px;
+    box-shadow: 0 30px 80px rgba(2,6,23,0.7);
+  }
+  .lb-btn {
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    background: rgba(255,255,255,0.08);
+    color:#fff;
+    border:0;
+    padding:10px 12px;
+    border-radius:9px;
+    cursor:pointer;
+    font-size:20px;
+  }
+  .lb-prev { left:22px; }
+  .lb-next { right:22px; }
+  .lb-close { top:22px; right:22px; transform:none; padding:8px 12px; }
+
+  @media (max-width: 1100px) { .grid { grid-template-columns: repeat(3,1fr); } }
+  @media (max-width: 800px) { .grid { grid-template-columns: repeat(2,1fr); } .card img{height:180px;} }
+  @media (max-width: 480px) { .grid { grid-template-columns: repeat(1,1fr);} .card img{height:200px;} .filters{padding:0 12px;} }
+</style>
+</head>
